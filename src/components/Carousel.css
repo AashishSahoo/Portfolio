@@ -1,0 +1,9 @@
+.slick-center {
+    transform: scale(1.15);
+    transition: transform 300ms;
+    z-index: 1;
+}
+
+.slick-slide {
+    transition: transform 300ms;
+} 

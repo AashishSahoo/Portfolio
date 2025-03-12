@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+
+
+.slick-dots li button:before {
+  font-size: 12px; /* Adjust dot size */
+  color: white !important; /* Make dots white */
+  opacity: 0.5; /* Reduce opacity for inactive dots */
+}
+
+.slick-dots li.slick-active button:before {
+  color: white !important; /* Make active dot white */
+  opacity: 1;
+}
+
+.slick-center {
+  transform: scale(1.15);
+  transition: transform 300ms;
+  z-index: 1;
+}
+
+.slick-slide {
+  transition: transform 300ms;
+}
