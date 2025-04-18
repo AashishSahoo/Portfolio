@@ -90,13 +90,29 @@ const ProfileCard = () => {
               <Language />
             </IconButton>
              */}
-            <IconButton color="primary">
+            <IconButton
+              color="primary"
+              component="a"
+              href="https://www.linkedin.com/in/ashishsahoo899/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <LinkedInIcon />
             </IconButton>
-            <IconButton sx={{ color: "#000" }}>
+            <IconButton
+              sx={{ color: "#000" }}
+              component="a"
+              href="https://github.com/AashishSahoo/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <GitHubIcon />
             </IconButton>
-            <IconButton sx={{ color: "#F44336" }}>
+            <IconButton
+              sx={{ color: "#F44336" }}
+              component="a"
+              href="mailto:ashishsahoo0013@gmail.com"
+            >
               <Email />
             </IconButton>
           </Box>

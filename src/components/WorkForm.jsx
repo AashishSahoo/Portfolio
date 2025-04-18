@@ -1,23 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { motion } from "framer-motion";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import emailjs from "emailjs-com";
 
 const WorkForm = () => {
-  const handleSubmit = (e) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [statusMessage, setStatusMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState(null); // null | true | false
+
+  const sendEmail = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData);
-    console.log(data);
+    setIsLoading(true);
+    setStatusMessage("");
+    setIsSuccess(null);
+
+    emailjs
+      .sendForm(
+        "service_qvgy8af",
+        "template_lpclduk",
+        e.target,
+        "D2IUmyjQrmBIv9ari"
+      )
+      .then(
+        (result) => {
+          setIsLoading(false);
+          setIsSuccess(true);
+          setStatusMessage("🎉 Message sent successfully!");
+          e.target.reset();
+        },
+        (error) => {
+          setIsLoading(false);
+          setIsSuccess(false);
+          setStatusMessage("❌ Failed to send message. Please try again.");
+        }
+      );
   };
 
   return (
@@ -36,7 +55,7 @@ const WorkForm = () => {
         </p>
       </motion.div>
 
-      <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl mx-auto">
+      <form onSubmit={sendEmail} className="space-y-6 max-w-2xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2 flex flex-col gap-2">
             <Label htmlFor="name" className="text-xl">
@@ -46,7 +65,8 @@ const WorkForm = () => {
               id="name"
               name="name"
               placeholder="Your Name"
-              className=" border-none bg-zinc-900 text-white"
+              className="border-none bg-zinc-900 text-white"
+              required
             />
           </div>
 
@@ -59,24 +79,11 @@ const WorkForm = () => {
               type="email"
               name="email"
               placeholder="Your@email.com"
-              className="border-none bg-zinc-900 text-white "
+              className="border-none bg-zinc-900 text-white"
+              required
             />
           </div>
         </div>
-        {/* 
-        <div className="space-y-2 flex flex-col gap-2 ">
-          <Label htmlFor="budget" className="text-xl">Budget</Label>
-          <Select name="budget">
-            <SelectTrigger className="border-none bg-zinc-900 text-white">
-              <SelectValue placeholder="Select..." />
-            </SelectTrigger>
-            <SelectContent className="bg-zinc-900 text-white gap-2">
-              <SelectItem value="small" className="text-white hover:bg-gray-900">Less than $5,000</SelectItem>
-              <SelectItem value="medium" className="text-white hover:bg-gray-900">$5,000 - $10,000</SelectItem>
-              <SelectItem value="large" className="text-white hover:bg-gray-900">$10,000+</SelectItem>
-            </SelectContent>
-          </Select>
-        </div> */}
 
         <div className="space-y-2 flex flex-col gap-2">
           <Label htmlFor="message" className="text-xl">
@@ -87,15 +94,29 @@ const WorkForm = () => {
             name="message"
             placeholder="Message"
             className="min-h-[150px] border-none bg-zinc-900 text-white"
+            required
           />
         </div>
 
-        <Button
-          type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-600 hover:cursor-pointer"
-        >
-          Submit
-        </Button>
+        <div className="space-y-4">
+          <Button
+            type="submit"
+            className="w-full bg-blue-500 hover:bg-blue-600"
+            disabled={isLoading}
+          >
+            {isLoading ? "Sending..." : "Submit"}
+          </Button>
+
+          {statusMessage && (
+            <p
+              className={`text-center text-lg font-medium ${
+                isSuccess ? "text-green-400" : "text-red-400"
+              }`}
+            >
+              {statusMessage}
+            </p>
+          )}
+        </div>
       </form>
     </div>
   );

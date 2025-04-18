@@ -4,29 +4,40 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Tooltip } from "@mui/material";
 
-import project1 from "../assets/project1.png";
-import project2 from "../assets/project2.png";
+import project1 from "../assets/axiom.jpeg";
+import project2 from "../assets/axiom.jpeg";
 import project3 from "../assets/mealmate.png";
+import project4 from "../assets/logo.png";
 
 const Projects = () => {
   const projects = [
     {
       title: "Axiom Protect 2.0",
-      description: "React.js, JavaScript and Material UI",
+      description: "React JS, JavaScript and Material UI",
       image: project1,
       link: "https://access.axiomprotect.com/login",
+      type: "Internship",
     },
     {
       title: "Self Service Portal",
-      description: "Next.js, TypeScript and Material UI",
+      description: "Next JS, TypeScript and Material UI",
       image: project2,
       link: "https://ssp.axiomprotect.com:5354/login",
+      type: "Internship",
     },
     {
       title: "Meal Mate",
-      description: "Online Food Ordering Application built in MERN ",
+      description: "MERN",
       image: project3,
       link: "https://github.com/AashishSahoo/MealMate-Frontend",
+      type: "Personal",
+    },
+    {
+      title: "Veri5now",
+      description: "Next JS, Typescript and Material UI",
+      image: project4,
+      link: "https://app.veri5now.com/login",
+      type: "Internship",
     },
   ];
 
@@ -93,10 +104,21 @@ const Projects = () => {
                 <h3 className="text-2xl md:text-3xl lg:text-5xl font-bold">
                   {project.title}
                 </h3>
+                <span
+                  className={`w-fit text-sm px-2 py-1 rounded-full font-semibold ${
+                    project.type === "Internship"
+                      ? "bg-blue-500 text-white"
+                      : "bg-green-500 text-white"
+                  }`}
+                >
+                  {project.type}
+                </span>
+
                 <p className="text-gray-500 text-lg md:text-xl lg:text-2xl">
                   {project.description}
                 </p>
               </motion.div>
+
               <motion.div
                 className="absolute top-4 right-4 opacity-0 group-hover:opacity-100"
                 whileHover={{ scale: 1.2, rotate: -10 }}

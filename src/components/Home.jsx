@@ -6,6 +6,7 @@ import WorkForm from "./WorkForm";
 import { motion } from "framer-motion";
 import { useCountAnimation } from "../hooks/useCountAnimation";
 import Carousel from "./Carousel";
+import Education from "./Education";
 
 const Home = () => {
   return (
@@ -29,7 +30,7 @@ const Home = () => {
           DEVELOPER
         </motion.h2>
         <p className="text-gray-400 max-w-xl pt-5 md:pt-10 text-lg md:text-xl">
-          Frontend Developer Intern with 7+ months of experience in React,
+          Frontend Developer Intern with 7 months of experience in React,
           JavaScript, TypeScript, Next.js, and Material UI. Built responsive
           UIs, integrated APIs, and worked on real-world projects with dynamic
           features. Developed a full-fledged MERN-based Online Food Ordering App
@@ -71,6 +72,8 @@ const Home = () => {
       <Carousel />
       <Experience />
       <Certificates />
+      <Education />
+
       <WorkForm />
     </div>
   );
