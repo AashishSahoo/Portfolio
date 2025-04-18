@@ -1,38 +1,131 @@
-import React from 'react'
-import { motion } from 'framer-motion'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Typography,
+  Avatar,
+  Box,
+  Link,
+} from "@mui/material";
 
 const ExperienceCard = ({ experience }) => (
   <motion.div
     initial={{ opacity: 0, y: 50 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
-    className=" mb-10 lg:px-10 w-full"
+    style={{ width: "100%", marginBottom: "2.5rem", paddingInline: "1rem" }}
   >
-    <Card className="bg-black text-white border-none hover:bg-zinc-900 transition-all duration-300 md:p-4 roounded-lg w-full">
-      <CardHeader className="flex flex-row items-center gap-4">
-        <div>
-          <h3 className="text-2xl font-bold">{experience.title}</h3>
-          <p className="text-secondary text-base font-semibold">{experience.company_name}</p>
-          <p className="text-muted-foreground text-sm">{experience.date}</p>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <ul className="list-disc ml-5 space-y-2">
-          {experience.points.map((point, index) => (
-            <li
-              key={`experience-point-${index}`}
-              className="text-gray-300 text-sm tracking-wider"
+    <Card
+      sx={{
+        backgroundColor: "#000",
+        color: "#fff",
+        borderRadius: 2,
+        transition: "all 0.3s ease",
+        ":hover": {
+          backgroundColor: "#181818",
+        },
+      }}
+    >
+      <CardHeader
+        title={
+          <Typography
+            variant="h6"
+            fontWeight="bold"
+            sx={{ paddingLeft: "1rem" }}
+          >
+            {experience.title}
+          </Typography>
+        }
+        subheader={
+          <Box sx={{ paddingLeft: "1rem" }}>
+            <Link
+              href="https://www.blue-bricks.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              underline="none"
+              sx={{
+                color: "#bb86fc",
+                fontWeight: 600,
+                "&:hover": { color: "#9d46ff" },
+              }}
             >
-              {point}
-            </li>
-          ))}
-        </ul>
+              {experience.company_name}
+            </Link>
+            <Typography variant="body2" color="gray">
+              {experience.date}
+            </Typography>
+          </Box>
+        }
+      />
+      <CardContent>
+        <Box component="div" sx={{ pl: 1 }}>
+          {experience.points.map((point, index) => {
+            const isProjectTitle =
+              point.startsWith("**") && point.endsWith("**");
+            const isEmptyLine = point.trim() === "";
+
+            if (isEmptyLine) {
+              return <Box key={`space-${index}`} sx={{ height: "0.5rem" }} />;
+            }
+
+            if (isProjectTitle) {
+              return (
+                <Box
+                  key={`project-title-${index}`}
+                  sx={{
+                    display: "flex",
+                    alignItems: "flex-start",
+                    gap: 1,
+                    mt: 2,
+                    mb: 1,
+                  }}
+                >
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      fontSize: "1.1rem",
+                      color: "#90caf9",
+                    }}
+                  >
+                    ➤
+                  </Typography>
+                  <Typography
+                    variant="subtitle1"
+                    fontWeight="bold"
+                    sx={{
+                      color: "#90caf9",
+                      fontSize: "1.05rem",
+                    }}
+                  >
+                    {point.replace(/\*\*/g, "")}
+                  </Typography>
+                </Box>
+              );
+            }
+
+            return (
+              <Typography
+                key={`point-${index}`}
+                variant="body2"
+                component="li"
+                sx={{
+                  color: "#ccc",
+                  fontSize: "0.95rem",
+                  marginBottom: "0.5rem",
+                  ml: 4,
+                }}
+              >
+                {point.replace(/^•\s*/, "")}
+              </Typography>
+            );
+          })}
+        </Box>
       </CardContent>
     </Card>
   </motion.div>
-)
+);
 
 const Experience = () => {
   return (
@@ -41,36 +134,73 @@ const Experience = () => {
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="mb-10 text-center lg:text-left md:px-10"
+        style={{
+          marginBottom: "2.5rem",
+          textAlign: "center",
+          paddingInline: "2rem",
+        }}
       >
-        <h1 className="text-white font-black text-4xl md:text-6xl lg:text-8xl -tracking-tight">
-          2 YEAR OF
-        </h1>
-        <h1 className="text-gray-500 font-black text-4xl md:text-6xl lg:text-8xl">
-            EXPERIENCE
-        </h1>
+        <Typography
+          variant="h2"
+          sx={{
+            fontWeight: 900,
+            fontSize: {
+              xs: "2.5rem",
+              md: "4rem",
+              lg: "5rem",
+            },
+            color: "white",
+            letterSpacing: "-0.05em",
+          }}
+        >
+          7 Months OF
+        </Typography>
+        <Typography
+          variant="h2"
+          sx={{
+            fontWeight: 900,
+            fontSize: {
+              xs: "2.5rem",
+              md: "4rem",
+              lg: "5rem",
+            },
+            color: "#9e9e9e",
+          }}
+        >
+          EXPERIENCE
+        </Typography>
       </motion.div>
 
-      <div className="mt-20 space-y-8 px-4 lg:px-0">
+      <Box sx={{ mt: 5, px: { xs: 2, lg: 0 } }}>
         {[
           {
-            title: "Flutter Developer Intern",
-            company_name: "Act T Connect",
-            date: "June 2024 – July 2024 ",
+            title: "Frontend Developer Intern",
+            company_name: "Blue Bricks",
+            date: "September 2024 – April 2025",
             points: [
-              "Worked on 4 projects in 2 months from June 2024 to July 2024",
-              "Fixed bugs on all the 4 applications ",
-              "Implemented Push Notification using Firebase Cloud Messaging and Apple Push Notification. ",
-              "Integrated various APIs in all the projects.",
-              "Uploaded 5 applications on Google Play Console"
+              "Worked on 3 projects in 7 months from September 2024 to April 2025.",
+              "",
+              "**Axiom Protect 2.0** (React.js, JavaScript):",
+              "• Developed and optimized multiple pages to enhance user experience and performance.",
+              "• Improved UI components for better responsiveness and usability.",
+              "• Integrated APIs efficiently, mapping complex data structures to the UI.",
+              "• Worked extensively with React Leaflet, customizing markers, displaying radius, and handling multiple locations, including overlapping markers and clustered views.",
+              "",
+              "**Self Service Portal** (Next.js, TypeScript):",
+              "• Developed and structured interactive, high-performance pages using Next.js and TypeScript.",
+              "• Enhanced UI/UX by refining design elements for a modern and intuitive user experience.",
+              "• Integrated RESTful APIs to fetch and display dynamic data with optimized state management.",
+              "",
+              "**IntelliTemplate – Veri5now** (Next.js, TypeScript):",
+              "• Built pages and mapped backend data effectively to UI components.",
             ],
           },
         ].map((experience, index) => (
           <ExperienceCard key={index} experience={experience} />
         ))}
-      </div>
+      </Box>
     </>
-  )
-}
+  );
+};
 
-export default Experience
+export default Experience;
